@@ -1,6 +1,5 @@
 package com.galaxy.proyectofinal_client.controller;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import com.galaxy.proyectofinal_client.dtos.ClienteDTO;
+import com.galaxy.proyectofinal_client.dtos.PageDTO;
 
 import jakarta.validation.Valid;
 
@@ -30,7 +30,7 @@ public class ClienteController {
 		this.restTemplate = restTemplateBuilder.rootUri("").build();
 	}
 	
-	@GetMapping
+	/*@GetMapping
 	public String findAllOrFilterByNombre(@RequestParam(required = false) String nombre, Model model) {
 		Optional<String> optionalName = Optional.ofNullable(nombre);
 		ResponseEntity<ClienteDTO[]> clientes;
@@ -41,6 +41,31 @@ public class ClienteController {
 		}
 		model.addAttribute("clientes", clientes.getBody());
 		return "clientes";
+	}*/
+	@GetMapping
+	public String findAllOrFilterByNombre(
+	        @RequestParam(required = false) String nombre,
+	        @RequestParam(defaultValue = "1") int pageNumber,
+	        @RequestParam(defaultValue = "3") int pageSize,
+	        Model model) {
+
+	    String url = this.apiUrl + "/byPage?pageNumber=" + pageNumber + "&pageSize=" + pageSize;
+
+	    if (nombre != null && !nombre.isEmpty()) {
+	        url += "&nombre=" + nombre;
+	    }
+
+	    ResponseEntity<PageDTO> response = this.restTemplate.getForEntity(url, PageDTO.class);
+	    
+	    PageDTO clientesPage = response.getBody();
+
+	    // Agregar los datos al modelo
+	    model.addAttribute("clientes", clientesPage.getContent()); // Lista de clientes
+	    model.addAttribute("currentPage", clientesPage.getNumber() + 1); // Página actual
+	    model.addAttribute("totalPages", clientesPage.getTotalPages()); // Total de páginas
+	    model.addAttribute("pageSize", pageSize); // Tamaño de página
+
+	    return "clientes";
 	}
 	
 	@GetMapping("/{id}")

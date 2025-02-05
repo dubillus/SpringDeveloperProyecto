@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.galaxy.proyectofinal.dtos.ClienteDTO;
@@ -81,6 +83,11 @@ public class ClienteServiceImpl implements ClienteService{
 	@Override
 	public List<Cliente> findAllActive() {
 		return clienteRepository.findAllActive();
+	}
+
+	@Override
+	public Page<Cliente> findAllPaging(Pageable pageable) {
+		return clienteRepository.findAllActive(pageable);
 	}
 
 }

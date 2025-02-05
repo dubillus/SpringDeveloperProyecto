@@ -22,7 +22,7 @@
 				        <div class="form-group row">
 				            <label for="nombre" class="control-label col-md-1">Nombre:</label>
 				            <div class="col-md-5">
-				            	<input type="text" id="nombre" name="nombre" th:field="*{nombre}" class="form-control" autocomplete="off">
+				            	<input type="text" id="nombre" name="nombre" th:field="*{nombre}" class="form-control" autocomplete="off" placeholder="Ingrese Nombre">
 				            	<small class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
 				            </div>
 				        </div>
@@ -30,7 +30,7 @@
 				        <div class="form-group row">
 				            <label for="correo" class="control-label col-md-1">Correo:</label>
 				            <div class="col-md-5">
-				            	<input type="text" id="correo" name="correo" th:field="*{correo}" class="form-control" autocomplete="off">
+				            	<input type="text" id="correo" name="correo" th:field="*{correo}" class="form-control" autocomplete="off" placeholder="Ingrese Correo">
 				            	<small class="text-danger" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></small>
 				            </div>
 				            
@@ -39,7 +39,7 @@
 				        <div class="form-group row">
 				            <label for="telefono" class="control-label col-md-1">Telefono:</label>
 				            <div class="col-md-5">
-				            	<input type="text" id="telefono" name="telefono" th:field="*{telefono}" class="form-control" maxlength="9" autocomplete="off">
+				            	<input type="text" id="telefono" name="telefono" th:field="*{telefono}" class="form-control" maxlength="9" autocomplete="off" placeholder="Ingrese Telefono">
 				            	<small class="text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></small>
 				            </div>
 				        </div>
@@ -47,7 +47,7 @@
 				        <div class="form-group row">
 				            <label for="direccion" class="control-label col-md-1">Dirección:</label>
 				            <div class="col-md-5">
-				            	<input type="text" id="direccion" name="direccion" th:field="*{direccion}" class="form-control" autocomplete="off">
+				            	<input type="text" id="direccion" name="direccion" th:field="*{direccion}" class="form-control" autocomplete="off" placeholder="Ingrese Dirección">
 				            	<small class="text-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small>
 				            </div>
 				        </div>
@@ -55,8 +55,8 @@
 				        <div class="form-group row">
 				        	<label class="col-md-1 col-form-label form-control-label"></label>
 				            <div class="col-md-9">
-				            	<button type="submit" class="btn btn-info">Guardar</button>
-				            	<a th:href="@{/}" style="margin-left: 10px;" class="btn btn-danger">Cancelar</a>
+				            	<button type="submit" class="btn btn-info"> <i class="fa fa-check"></i> Guardar</button>
+				            	<a th:href="@{/}" style="margin-left: 10px;" class="btn btn-danger"> <i class="fa fa-times"></i> Cancelar</a>
 				            </div>
 				        </div>
 				    </form>

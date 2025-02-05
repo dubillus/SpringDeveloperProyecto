@@ -28,7 +28,11 @@
     <div th:if="${#lists.isEmpty(clientes)}" style="color: red;">
         <p>No se encontraron clientes con ese nombre.</p>
     </div>
-
+    
+	<!-- Botón de agregar Cliente -->
+    <a th:href="@{/nuevo}" class="btn btn-info"> <i class="fa fa-plus"></i> Agregar Cliente</a>
+    
+    <hr>
     <!-- Tabla para mostrar los clientes -->
     <table class="table table-bordered table-hover">
         <thead>
@@ -52,16 +56,32 @@
                 <td th:text="${cliente.direccion}"></td>
                 <td th:text="${cliente.fechaHoraCreacion}"></td>
                 <td>
-                    <a th:href="@{/{id}(id=${cliente.clienteNo})}" class="btn default" title="Ver detalle"><i class="fa fa-eye"></i></a>
-                    <a th:href="@{/editar/{id}(id=${cliente.clienteNo})}" class="btn default" title="Editar Cliente"><i class="fa fa-pencil"></i></a>
-                    <a th:href="@{/eliminar/{id}(id=${cliente.clienteNo})}" class="btn default" title="Eliminar Cliente"><i class="fa fa-trash-o"></i></a>
+                    <a th:href="@{/{id}(id=${cliente.clienteNo})}" class="btn btn-secondary" title="Ver detalle"><i class="fa fa-eye"></i></a>
+                    <a th:href="@{/editar/{id}(id=${cliente.clienteNo})}" class="btn btn-secondary" title="Editar Cliente"><i class="fa fa-pencil"></i></a>
+                    <a th:href="@{/eliminar/{id}(id=${cliente.clienteNo})}" class="btn btn-secondary" title="Eliminar Cliente"><i class="fa fa-trash-o"></i></a>
                 </td>
             </tr>
         </tbody>
     </table>
+	<!-- Controles de paginación -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-end">
+            <!-- Botón Anterior -->
+            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                <a class="page-link" th:href="@{'?pageNumber=' + (${currentPage - 1}) + '&pageSize=' + ${pageSize}}">Anterior</a>
+            </li>
 
-    <!-- Botón de agregar Cliente -->
-    <a th:href="@{/nuevo}" class="btn btn-info"> <i class="fa fa-plus"></i> Agregar Cliente</a>
+            <!-- Números de página -->
+            <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item" th:classappend="${i == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{'?pageNumber=' + ${i} + '&pageSize=' + ${pageSize}}" th:text="${i}"></a>
+            </li>
+
+            <!-- Botón Siguiente -->
+            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                <a class="page-link" th:href="@{'?pageNumber=' + (${currentPage + 1}) + '&pageSize=' + ${pageSize}}">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
 	</div>
     <script type="text/javascript" src="/js/jquery.slim.min.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>

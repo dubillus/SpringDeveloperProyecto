@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Detalle de Cliente</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Detalle de Cliente</h1>
+	<table class="table table-bordered table-hover">
+		<tbody>
+			<tr>
+				<td>Nombre</td>
+				<td th:text="${cliente.nombre}"></td>
+			</tr>
+			<tr>
+				<td>Correo</td>
+				<td th:text="${cliente.correo}"></td>
+			</tr>
+			<tr>
+				<td>Telefono</td>
+				<td th:text="${cliente.telefono}"></td>
+			</tr>
+			<tr>
+				<td>Dirección</td>
+				<td th:text="${cliente.direccion}"></td>
+			</tr>
+			<tr>
+				<td>Fecha Hora Creacion</td>
+				<td th:text="${cliente.fechaHoraCreacion}"></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+	<script type="text/javascript" src="/js/jquery.slim.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</body>
+</html>

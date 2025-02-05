@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Clientes</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="container">
+		<h1>Lista de Clientes</h1>
+    
+    <!-- Formulario para búsqueda -->
+    <form th:action="@{/}" method="get" class="form-inline">
+	    <label for="nombre" class="mr-2">Buscar por nombre:</label>
+	    <input type="text" id="nombre" name="nombre" class="form-control mr-2" th:value="${nombreBuscado}" placeholder="Escribe un nombre">
+	    
+	    <button type="submit" class="btn btn-info mr-2">
+	        <i class="fa fa-search"></i> Buscar
+	    </button>
+	    
+	    <a th:href="@{/}" class="btn btn-danger">
+	        <i class="fa fa-times"></i> Limpiar búsqueda
+	    </a>
+	</form>
+	<hr>
+    <!-- Mostrar mensaje si no hay clientes -->
+    <div th:if="${#lists.isEmpty(clientes)}" style="color: red;">
+        <p>No se encontraron clientes con ese nombre.</p>
+    </div>
+
+    <!-- Tabla para mostrar los clientes -->
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Telefono</th>
+                <th>Dirección</th>
+                <th>Fecha Hora Creación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterar sobre la lista de clientes -->
+            <tr th:each="cliente : ${clientes}">
+                <td th:text="${cliente.clienteNo}"></td>
+                <td th:text="${cliente.nombre}"></td>
+                <td th:text="${cliente.correo}"></td>
+                <td th:text="${cliente.telefono}"></td>
+                <td th:text="${cliente.direccion}"></td>
+                <td th:text="${cliente.fechaHoraCreacion}"></td>
+                <td>
+                    <a th:href="@{/{id}(id=${cliente.clienteNo})}" class="btn default" title="Ver detalle"><i class="fa fa-eye"></i></a>
+                    <a th:href="@{/editar/{id}(id=${cliente.clienteNo})}" class="btn default" title="Editar Cliente"><i class="fa fa-pencil"></i></a>
+                    <a th:href="@{/eliminar/{id}(id=${cliente.clienteNo})}" class="btn default" title="Eliminar Cliente"><i class="fa fa-trash-o"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Botón de agregar Cliente -->
+    <a th:href="@{/nuevo}" class="btn btn-info"> <i class="fa fa-plus"></i> Agregar Cliente</a>
+	</div>
+    <script type="text/javascript" src="/js/jquery.slim.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</body>
+</html>

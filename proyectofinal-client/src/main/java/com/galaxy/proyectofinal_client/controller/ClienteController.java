@@ -59,11 +59,10 @@ public class ClienteController {
 	    
 	    PageDTO clientesPage = response.getBody();
 
-	    // Agregar los datos al modelo
-	    model.addAttribute("clientes", clientesPage.getContent()); // Lista de clientes
-	    model.addAttribute("currentPage", clientesPage.getNumber() + 1); // Página actual
-	    model.addAttribute("totalPages", clientesPage.getTotalPages()); // Total de páginas
-	    model.addAttribute("pageSize", pageSize); // Tamaño de página
+	    model.addAttribute("clientes", clientesPage.getContent());
+	    model.addAttribute("currentPage", clientesPage.getNumber() + 1);
+	    model.addAttribute("totalPages", clientesPage.getTotalPages());
+	    model.addAttribute("pageSize", pageSize);
 
 	    return "clientes";
 	}

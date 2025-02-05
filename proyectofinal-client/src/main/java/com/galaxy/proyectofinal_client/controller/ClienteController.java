@@ -7,13 +7,17 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import com.galaxy.proyectofinal_client.dtos.ClienteDTO;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class ClienteController {
@@ -55,7 +59,12 @@ public class ClienteController {
 	}
 	
 	@PostMapping("/guardar")
-	public String save(ClienteDTO clienteDTO) {
+	public String save(@Valid @ModelAttribute("cliente") ClienteDTO clienteDTO, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+	        model.addAttribute("titulo", "Registrar Cliente");
+	        model.addAttribute("action", "/guardar");
+	        return "formulario-nuevo"; // Retorna el formulario con errores
+	    }
 		this.restTemplate.postForEntity(this.apiUrl, clienteDTO, ClienteDTO.class);
         return "redirect:/"; // Redirige a la lista de clientes
 	}
@@ -72,7 +81,12 @@ public class ClienteController {
 
     // Procesar la actualización del cliente
     @PostMapping("/actualizar")
-    public String update(ClienteDTO clienteDTO) {
+    public String update(@Valid @ModelAttribute("cliente") ClienteDTO clienteDTO, BindingResult result, Model model) {
+    	if (result.hasErrors()) {
+    		model.addAttribute("titulo", "Editar Cliente");
+            model.addAttribute("action", "/actualizar");
+            return "formulario-nuevo";
+    	}
     	this.restTemplate.put(this.apiUrl + '/' + clienteDTO.getClienteNo(), clienteDTO);
         return "redirect:/"; // Redirige a la lista de clientes
     }

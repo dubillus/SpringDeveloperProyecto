@@ -11,7 +11,7 @@
 		<h1>Lista de Clientes</h1>
     
     <!-- Formulario para búsqueda -->
-    <form th:action="@{/}" method="get" class="form-inline">
+    <!--<form th:action="@{/}" method="get" class="form-inline">
 	    <label for="nombre" class="mr-2">Buscar por nombre:</label>
 	    <input type="text" id="nombre" name="nombre" class="form-control mr-2" th:value="${nombreBuscado}" placeholder="Escribe un nombre">
 	    
@@ -22,7 +22,7 @@
 	    <a th:href="@{/}" class="btn btn-danger">
 	        <i class="fa fa-times"></i> Limpiar búsqueda
 	    </a>
-	</form>
+	</form>-->
 	<hr>
     <!-- Mostrar mensaje si no hay clientes -->
     <div th:if="${#lists.isEmpty(clientes)}" style="color: red;">

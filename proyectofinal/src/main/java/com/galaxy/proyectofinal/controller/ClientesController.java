@@ -38,9 +38,8 @@ public class ClientesController {
 		return clienteService.findById(id);
 	}
 	
-	@GetMapping("/findByNombre")
-	public List<Cliente> findByNombre(@RequestParam String nombre){
-		return clienteService.findAllOrFilterByNombre("%"+nombre+"%");
+	public List<Cliente> findByNombre(@RequestParam(required = false) String nombre){
+		return clienteService.findAllOrFilterByNombre(nombre);
 	}
 	
 	@PostMapping

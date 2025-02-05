@@ -26,7 +26,7 @@ public class ClienteServiceImpl implements ClienteService{
 	public List<Cliente> findAllOrFilterByNombre(String nombre) {
 		Optional<String> filterNombre = Optional.ofNullable(nombre);
 		if(filterNombre.isPresent()) {
-			return clienteRepository.findByNombre(nombre);
+			return clienteRepository.findByNombre("%"+nombre+"%");
 		}
 		return clienteRepository.findAllActive();
 	}
@@ -55,7 +55,7 @@ public class ClienteServiceImpl implements ClienteService{
 			clienteToUpdate.setCorreo(cliente.getCorreo());
 			clienteToUpdate.setTelefono(cliente.getTelefono());
 			clienteToUpdate.setDireccion(cliente.getDireccion());
-			clienteRepository.save(clienteToUpdate);
+			return clienteRepository.save(clienteToUpdate);
 		}
 		return clienteRepository.save(cliente);
 	}
